@@ -1,16 +1,54 @@
+# @summary A class for managing Matrix Synapse server.
+#
+# @description
+#   This class installs and configures Matrix Synapse server, a free and open-source distributed communication server.
+#
+# @example
+#   class { 'matrix_synapse':
+#     server_name => 'example.com',
+#     version => 'latest',
+#   }
+#
+# @param server_name
+#   The server name of the Matrix Synapse instance.
+#
+# @param web_client_location
+#   The file system location of the web client.
+#
+# @param version
+#   The version of Matrix Synapse to install. Can be 'latest', 'present' or 'absent'.
+#   Defaults to 'latest'.
+#
+# @param enable_registration
+#   Whether to enable user registration. Defaults to false.
+#
+# @param allow_guest_access
+#   Whether to allow guest access. Defaults to false.
+#
+# @param report_stats
+#   Whether to report usage statistics. Defaults to false.
+#
+# @param database_config
+#   The database configuration as a hash. Defaults to an empty hash.
+#
+# @param oidc_config
+#   The OIDC configuration as a hash. Optional.
+#
+# @param appservices
+#   An array of hashes representing the application services to configure. Defaults to an empty array.
 class matrix_synapse (
   String $server_name,
-  String $web_client_location,
-  String $version = 'latest',
-  Boolean $enable_registration = false,
-  Boolean $allow_guest_access = false,
-  Boolean $report_stats = false,
-  Hash $database_config = {},
-  Hash $oidc_config = {},
-  Array[Hash] $appservices = [],
+  Stdlib::Absolutepath $web_client_location,
+  Enum['latest', 'present', 'absent'] $version = 'latest',
+  Boolean $enable_registration                 = false,
+  Boolean $allow_guest_access                  = false,
+  Boolean $report_stats                        = false,
+  Hash $database_config                        = {},
+  Optional[Hash] $oidc_config                  = undef,
+  Array[Hash] $appservices                     = [],
 ) {
   $package_name = 'matrix-synapse'
-  $config_path  = '/etc/matrix-synapse/homeserver.yaml'
+  $config_path = '/etc/matrix-synapse/homeserver.yaml'
   $service_name = 'matrix-synapse'
 
   # Ensure the APT package repository is added
