@@ -20,7 +20,7 @@ class matrix_synapse::install (
       location => 'https://packages.matrix.org/debian/',
       repos    => 'main',
       key      => {
-        'id'     => 'AD0592FE47F0DF61',
+        'id'     => 'AAF9AE843A7584B5A3E4CD2BCF45A512DE2DA058',
         'source' => 'https://packages.matrix.org/debian/matrix-org-archive-keyring.gpg',
       },
       include  => {

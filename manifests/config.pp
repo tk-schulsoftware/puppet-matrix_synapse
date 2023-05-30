@@ -17,8 +17,11 @@
 # @param report_stats
 #   Whether or not to report anonymous usage statistics.
 #
+# @param database_type
+#   Type of database used by the Matrix Synapse service.
+#
 # @param database_config
-#   Configuration options for the Postgres database used by the Matrix Synapse service.
+#   Configuration options for the configured database_type database used by the Matrix Synapse service.
 #
 # @param oidc_config
 #   Configuration options for OpenID Connect (OIDC).

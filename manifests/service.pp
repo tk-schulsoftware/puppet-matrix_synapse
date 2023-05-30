@@ -6,6 +6,12 @@
 # @param ensure
 #   Whether the service should be running or stopped. Defaults to 'running'.
 #
+# @param enable
+#   Whether the service should be enabled. Defaults to true.
+#
+# @param has_restart
+#   Whether the service-provider has a restart-option. Defaults to true.
+#
 class matrix_synapse::service (
   Enum['running', 'stopped'] $ensure = 'running',
   Boolean $enable                    = true,
