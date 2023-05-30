@@ -1,0 +1,18 @@
+id: "<%= epp('id') %>"
+url: "<%= epp('url') %>"
+as_token: "<%= epp('as_token') %>"
+hs_token: "<%= epp('hs_token') %>"
+sender_localpart: "<%= epp('sender_localpart') %>"
+
+namespaces:
+  users:
+    <% $namespaces['users'].each |$user_namespace| { -%>
+    - exclusive: <%= $user_namespace['exclusive'] %>
+      regex: "<%= $user_namespace['regex'] %>"
+    <% } -%>
+
+  aliases:
+    <% $namespaces['aliases'].each |$alias_namespace| { -%>
+    - exclusive: <%= $alias_namespace['exclusive'] %>
+      regex: "<%= $alias_namespace['regex'] %>"
+    <% } -%>

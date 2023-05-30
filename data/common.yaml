@@ -1,1 +1,3 @@
---- {}
+---
+matrix_synapse::config::log_config: '/var/log/matrix-synapse/homeserver.log'
+matrix_synapse::config::media_store_path: '/var/lib/matrix-synapse/media'

@@ -1,0 +1,32 @@
+server_name: "<%= $server_name %>"
+enable_registration: <%= $enable_registration ? {
+true    => 'true',
+default => 'false',
+} %>
+allow_guest_access: <%= $allow_guest_access ? {
+true    => 'true',
+default => 'false',
+} %>
+report_stats: <%= $report_stats ? {
+true    => 'true',
+default => 'false',
+} %>
+
+log_config: "<%= $log_config %>"
+media_store_path: "<%= $media_store_path %>"
+public_baseurl: "<%= $public_baseurl %>"
+
+database:
+  name: "<%= $database_config['name'] %>"
+  user: "<%= $database_config['user'] %>"
+  password: "<%= $database_config['password'] %>"
+  host: "<%= $database_config['host'] %>"
+
+<% if $oidc_config { -%>
+oidc_config:
+  enabled: "<%= $oidc_config['enabled'] %>"
+  client_id: "<%= $oidc_config['client_id'] %>"
+  client_secret: "<%= $oidc_config['client_secret'] %>"
+  issuer: "<%= $oidc_config['issuer'] %>"
+  scopes: "<%= $oidc_config['scopes'] %>"
+<% } -%>
