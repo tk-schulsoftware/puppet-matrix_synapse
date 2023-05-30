@@ -1,5 +1,15 @@
+#
+# @param version [Enum['latest', 'present', 'absent']]
+#   The version of Matrix Synapse to install. Can be 'latest', 'present' or 'absent'.
+#   Defaults to 'latest'.
+#
+# @param manage_repo [Boolean]
+#   Whether to manage the repo for the service, can be true or false.
+#
+# @param manage_package [Boolean]
+#   Whether to manage the package for the service, can be true or false.
+#
 class matrix_synapse::install (
-  String $server_name,
   Enum['latest', 'present', 'absent'] $version,
   Boolean $manage_repo,
   Boolean $manage_package,
@@ -22,7 +32,7 @@ class matrix_synapse::install (
   # Install the package
   if $manage_package {
     package { $matrix_synapse::params::package_name:
-      ensure  => $package_ensure,
+      ensure  => $version,
       require => Apt::Source['matrix-synapse'],
     }
   }

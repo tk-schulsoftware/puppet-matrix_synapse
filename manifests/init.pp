@@ -49,6 +49,9 @@
 # @param matrix_synapse_group [String]
 #   Default group for Matrix Synapse service.
 #
+# @param manage_repo [Boolean]
+#   Whether to manage the repo for the service, can be true or false.
+#
 # @param manage_package [Boolean]
 #   Whether to manage the package for the service, can be true or false.
 #
@@ -87,7 +90,6 @@ class matrix_synapse (
   Boolean $manage_firewall                         = $matrix_synapse::params::manage_firewall,
 ) inherits matrix_synapse::params {
   class { 'matrix_synapse::install':
-    server_name    => $server_name,
     version        => $version,
     manage_repo    => $manage_repo,
     manage_package => $manage_package,
