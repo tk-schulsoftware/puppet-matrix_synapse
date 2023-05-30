@@ -37,15 +37,16 @@
 #
 class matrix_synapse::config (
   Stdlib::Fqdn $server_name,
-  Boolean $enable_registration                                                                              = false,
-  Boolean $allow_guest_access                                                                               = false,
-  Boolean $report_stats                                                                                     = false,
-  Hash[Enum['name', 'user', 'password', 'host'], String[1]] $database_config                                = {},
-  Optional[Hash[Enum['enabled', 'client_id', 'client_secret', 'issuer', 'scopes'], String[1]]] $oidc_config = undef,
-  Array[Hash[String[1], Any], 1] $appservices                                                               = [],
-  Stdlib::Absolutepath $log_config = $matrix_synapse::params::log_config,
-  Stdlib::Absolutepath $media_store_path = $matrix_synapse::params::media_store_path,
-  Stdlib::Fqdn $public_baseurl = "https://${server_name}",
+  Boolean $enable_registration,
+  Boolean $allow_guest_access,
+  Boolean $report_stats,
+  String $database_type,
+  Hash $database_config,
+  Optional[Hash] $oidc_config                 = undef,
+  Stdlib::Absolutepath $log_config,
+  Stdlib::Absolutepath $media_store_path,
+  Stdlib::HTTPUrl $public_baseurl,
+  Array[Hash[String[1], Any], 1] $appservices = [],
 ) inherits matrix_synapse::params {
   # Create the configuration file
   file { '/etc/matrix-synapse/homeserver.yaml':
@@ -55,9 +56,13 @@ class matrix_synapse::config (
         'enable_registration' => $enable_registration,
         'allow_guest_access'  => $allow_guest_access,
         'report_stats'        => $report_stats,
+        'database_type'       => $database_type,
         'database_config'     => $database_config,
         'oidc_config'         => $oidc_config,
         'appservices'         => $appservices,
+        'log_config'          => $log_config,
+        'media_store_path'    => $media_store_path,
+        'public_baseurl'      => $public_baseurl,
     }),
     require => Package['matrix-synapse'],
   }

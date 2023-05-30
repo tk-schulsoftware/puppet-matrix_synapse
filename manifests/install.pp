@@ -31,8 +31,9 @@ class matrix_synapse::install (
 
   # Install the package
   if $manage_package {
-    package { $matrix_synapse::params::package_name:
+    package { 'matrix-synapse':
       ensure  => $version,
+      name    => $matrix_synapse::params::package_name,
       require => Apt::Source['matrix-synapse'],
     }
   }

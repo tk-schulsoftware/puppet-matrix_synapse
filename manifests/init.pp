@@ -70,24 +70,25 @@
 # init.pp
 class matrix_synapse (
   String $server_name,
-  Enum['latest', 'present', 'absent'] $version     = $matrix_synapse::params::version,
-  Boolean $enable_registration                     = $matrix_synapse::params::enable_registration,
-  Boolean $allow_guest_access                      = $matrix_synapse::params::allow_guest_access,
-  Boolean $report_stats                            = $matrix_synapse::params::report_stats,
-  Hash $database_config                            = $matrix_synapse::params::database_config,
-  Optional[Hash] $oidc_config                      = $matrix_synapse::params::oidc_config,
-  Array[Hash] $appservices                         = $matrix_synapse::params::appservices,
-  Optional[Stdlib::Absolutepath] $log_config       = $matrix_synapse::params::log_config,
-  Optional[Stdlib::Absolutepath] $media_store_path = $matrix_synapse::params::media_store_path,
-  Stdlib::Fqdn $public_baseurl                     = $matrix_synapse::params::public_baseurl,
-  String $matrix_synapse_user                      = $matrix_synapse::params::matrix_synapse_user,
-  String $matrix_synapse_group                     = $matrix_synapse::params::matrix_synapse_group,
-  Boolean $manage_repo                             = $matrix_synapse::params::manage_repo,
-  Boolean $manage_package                          = $matrix_synapse::params::manage_package,
-  Boolean $manage_service                          = $matrix_synapse::params::manage_service,
-  String $service_ensure                           = $matrix_synapse::params::service_ensure,
-  Boolean $service_enable                          = $matrix_synapse::params::service_enable,
-  Boolean $manage_firewall                         = $matrix_synapse::params::manage_firewall,
+  Enum['latest', 'present', 'absent'] $version                               = $matrix_synapse::params::version,
+  Boolean $enable_registration                                               = $matrix_synapse::params::enable_registration,
+  Boolean $allow_guest_access                                                = $matrix_synapse::params::allow_guest_access,
+  Boolean $report_stats                                                      = $matrix_synapse::params::report_stats,
+  String $database_type = $matrix_synapse::params::database_type,
+  Hash[Enum['database', 'user', 'password', 'host', 'port'], String[1]] $database_config = $matrix_synapse::params::database_config,
+  Optional[Hash] $oidc_config                                                = undef,
+  Array[Hash] $appservices                                                   = [],
+  Optional[Stdlib::Absolutepath] $log_config                                 = $matrix_synapse::params::log_config,
+  Optional[Stdlib::Absolutepath] $media_store_path                           = $matrix_synapse::params::media_store_path,
+  Stdlib::HTTPUrl $public_baseurl                                               = "https://${server_name}",
+  String $matrix_synapse_user                                                = $matrix_synapse::params::matrix_synapse_user,
+  String $matrix_synapse_group                                               = $matrix_synapse::params::matrix_synapse_group,
+  Boolean $manage_repo                                                       = $matrix_synapse::params::manage_repo,
+  Boolean $manage_package                                                    = $matrix_synapse::params::manage_package,
+  Boolean $manage_service                                                    = $matrix_synapse::params::manage_service,
+  String $service_ensure                                                     = $matrix_synapse::params::service_ensure,
+  Boolean $service_enable                                                    = $matrix_synapse::params::service_enable,
+  Boolean $manage_firewall                                                   = $matrix_synapse::params::manage_firewall,
 ) inherits matrix_synapse::params {
   class { 'matrix_synapse::install':
     version        => $version,
@@ -96,9 +97,11 @@ class matrix_synapse (
   }
 
   class { 'matrix_synapse::config':
+    server_name         => $server_name,
     enable_registration => $enable_registration,
     allow_guest_access  => $allow_guest_access,
     report_stats        => $report_stats,
+    database_type       => $database_type,
     database_config     => $database_config,
     oidc_config         => $oidc_config,
     appservices         => $appservices,
@@ -109,10 +112,7 @@ class matrix_synapse (
 
   # Ensure the service is running
   class { 'matrix_synapse::service':
-    ensure               => $service_ensure,
-    enable               => $service_enable,
-    matrix_synapse_user  => $matrix_synapse_user,
-    matrix_synapse_group => $matrix_synapse_group,
-    manage_firewall      => $manage_firewall,
+    ensure => $service_ensure,
+    enable => $service_enable,
   }
 }

@@ -1,10 +1,16 @@
-id: "<%= epp('id') %>"
-url: "<%= epp('url') %>"
-as_token: "<%= epp('as_token') %>"
-hs_token: "<%= epp('hs_token') %>"
-sender_localpart: "<%= epp('sender_localpart') %>"
+id: "<%= $id %>"
+url: "<%= $url %>"
+as_token: "<%= $as_token %>"
+hs_token: "<%= $hs_token %>"
+sender_localpart: "<%= $sender_localpart %>"
 
 namespaces:
+  rooms:
+    <% $namespaces['rooms'].each |$room_namespace| { -%>
+    - exclusive: <%= $room_namespace['exclusive'] %>
+      regex: "<%= $room_namespace['regex'] %>"
+    <% } -%>
+
   users:
     <% $namespaces['users'].each |$user_namespace| { -%>
     - exclusive: <%= $user_namespace['exclusive'] %>

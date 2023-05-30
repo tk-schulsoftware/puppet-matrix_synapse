@@ -17,10 +17,13 @@ media_store_path: "<%= $media_store_path %>"
 public_baseurl: "<%= $public_baseurl %>"
 
 database:
-  name: "<%= $database_config['name'] %>"
-  user: "<%= $database_config['user'] %>"
-  password: "<%= $database_config['password'] %>"
-  host: "<%= $database_config['host'] %>"
+  name: "<%= $database_type %>"
+  args:
+    user: "<%= $database_config['user'] %>"
+    password: "<%= $database_config['password'] %>"
+    database: "<%= $database_config['database'] %>"
+    host: "<%= $database_config['host'] %>"
+    port: "<%= $database_config['port'] %>"
 
 <% if $oidc_config { -%>
 oidc_config:

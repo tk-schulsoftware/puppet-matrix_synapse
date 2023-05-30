@@ -8,11 +8,13 @@
 #
 class matrix_synapse::service (
   Enum['running', 'stopped'] $ensure = 'running',
-) {
+  Boolean $enable                    = true,
+  Boolean $has_restart               = $matrix_synapse::params::service_has_restart,
+) inherits matrix_synapse::params {
   service { 'matrix-synapse':
     ensure     => $ensure,
-    enable     => true,
-    hasrestart => true,
+    enable     => $enable,
+    hasrestart => $has_restart,
     require    => [Class['matrix_synapse::install'], Class['matrix_synapse::config']],
   }
 }

@@ -8,23 +8,34 @@ class matrix_synapse::params {
   # These default values can be overridden when declaring the main class or config class
 
   # Parameters from main class
-  $matrix_synapse_user     = 'matrix-synapse'
-  $matrix_synapse_group    = 'matrix-synapse'
-  $manage_package          = 'installed'
-  $service_ensure          = 'running'
-  $service_enable          = true
-  $manage_firewall         = true
+  $version = 'present'
+  $matrix_synapse_user = 'matrix-synapse'
+  $matrix_synapse_group = 'matrix-synapse'
+  $manage_repo = true
+  $manage_package = true
+  $manage_service = true
+  $service_ensure = 'running'
+  $service_enable = true
+  $manage_firewall = true
+
+  $allow_guest_access = true
+  $report_stats = true
 
   # Parameters from config class
   $database_type = 'sqlite'
-  $database_name = 'homeserver'
+  $database_config = {
+    database => 'homeserver.db',
+  }
+
   $enable_registration = false
   $enable_oidc = false
 
+  $service_has_restart = true
+
   # Debian-specific parameters
   if $facts['os']['family'] == 'Debian' {
-    $package_name       = 'matrix-synapse'
-    $service_name       = 'matrix-synapse'
+    $package_name = 'matrix-synapse'
+    $service_name = 'matrix-synapse'
 
     $log_config = '/var/log/matrix-synapse/homeserver.log'
     $media_store_path = '/var/lib/matrix-synapse/media'
