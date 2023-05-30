@@ -49,8 +49,11 @@
 # @param matrix_synapse_group [String]
 #   Default group for Matrix Synapse service.
 #
-# @param package_ensure [String]
-#   Default package state, can be 'present', 'absent', or 'installed'.
+# @param manage_package [Boolean]
+#   Whether to manage the package for the service, can be true or false.
+#
+# @param manage_service [Boolean]
+#   Whether to manage the service for the service, can be true or false.
 #
 # @param service_ensure [String]
 #   Default service state, can be 'running' or 'stopped'.
@@ -77,7 +80,7 @@ class matrix_synapse (
   String $matrix_synapse_user                      = $matrix_synapse::params::matrix_synapse_user,
   String $matrix_synapse_group                     = $matrix_synapse::params::matrix_synapse_group,
   Boolean $manage_repo                             = $matrix_synapse::params::manage_repo,
-  Boolean $manage_package                           = $matrix_synapse::params::manage_package,
+  Boolean $manage_package                          = $matrix_synapse::params::manage_package,
   Boolean $manage_service                          = $matrix_synapse::params::manage_service,
   String $service_ensure                           = $matrix_synapse::params::service_ensure,
   Boolean $service_enable                          = $matrix_synapse::params::service_enable,
