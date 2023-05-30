@@ -1,0 +1,43 @@
+{
+  "name": "tks-matrix_synapse",
+  "version": "0.1.0",
+  "author": "Tobias Knipping",
+  "summary": "Puppet module to deploy and configure Matrix Synapse",
+  "license": "MIT",
+  "source": "https://github.com/username/puppet-matrix_synapse",
+  "project_page": "https://github.com/username/puppet-matrix_synapse",
+  "issues_url": "https://github.com/username/puppet-matrix_synapse/issues",
+  "dependencies": [
+    {
+      "name": "puppetlabs/apt",
+      "version_requirement": ">= 7.0.0 < 8.0.0"
+    },
+    {
+      "name": "puppetlabs-stdlib",
+      "version_requirement": ">= 4.2.0 < 7.0.0"
+    }
+  ],
+  "operatingsystem_support": [
+    {
+      "operatingsystem": "Debian",
+      "operatingsystemrelease": [
+        "10"
+      ]
+    },
+    {
+      "operatingsystem": "Ubuntu",
+      "operatingsystemrelease": [
+        "18.04"
+      ]
+    }
+  ],
+  "requirements": [
+    {
+      "name": "puppet",
+      "version_requirement": ">= 6.21.0 < 8.0.0"
+    }
+  ],
+  "pdk-version": "2.7.1",
+  "template-url": "pdk-default#2.7.4",
+  "template-ref": "tags/2.7.4-0-g58edf57"
+}

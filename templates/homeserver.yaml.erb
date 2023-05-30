@@ -1,0 +1,28 @@
+# A basic configuration file
+server_name: "<%= @server_name %>"
+pid_file: "/var/run/matrix-synapse/homeserver.pid"
+web_client: True
+web_client_location: "<%= @web_client_location %>"
+
+# Registration
+enable_registration: <%= @enable_registration %>
+
+# Guest access
+allow_guest_access: <%= @allow_guest_access %>
+
+# Reporting
+report_stats: <%= @report_stats %>
+
+# Database configuration
+database:
+  name: "psycopg2"
+  args:
+    <% @database_config.each do |key, value| -%>
+    <%= key %>: <%= value %>
+    <% end -%>
+
+# OIDC configuration
+oidc_config:
+  <% @oidc_config.each do |key, value| -%>
+  <%= key %>: <%= value %>
+  <% end -%>
